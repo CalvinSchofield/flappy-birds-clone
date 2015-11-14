@@ -16,6 +16,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var player = SKShapeNode()
     
+    var gameStarted = false
+    
+    var clickCounter = 0
+    
     
     override func didMoveToView(view: SKView) {
         //Setting up Scene
@@ -59,12 +63,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.position = CGPoint(x: CGRectGetMidX(self.frame) * 0.8, y: CGRectGetMidY(self.frame))
         
-        player.physicsBody = SKPhysicsBody(circleOfRadius: 20)
-        
-        player.physicsBody?.dynamic = true
-        
-        player.physicsBody?.allowsRotation = false
-        
         addChild(player)
         
     }
@@ -72,14 +70,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
-        player.physicsBody?.velocity = CGVectorMake(0, 0)
+        if clickCounter >= 0 {
+            
+            setPhysics()
         
-        player.physicsBody?.applyImpulse(CGVectorMake(0, 36))
+            player.physicsBody?.velocity = CGVectorMake(0, 0)
+        
+            player.physicsBody?.applyImpulse(CGVectorMake(0, 36))
+            
+        } else {
+            
+            clickCounter++
+            
+            gameStarted = true
+            
+        }
         
     }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+    }
+    
+    
+    //MARK: - Function : check for gameState
+    func setPhysics() {
+        
+        player.physicsBody = SKPhysicsBody(circleOfRadius: 20)
+        
+        if gameStarted {
+            
+            if let physics = player.physicsBody {
+                
+                physics.dynamic = true
+                
+                physics.allowsRotation = false
+                
+                physics.affectedByGravity = true
+                
+            }
+            
+        }
+        
     }
     
     
