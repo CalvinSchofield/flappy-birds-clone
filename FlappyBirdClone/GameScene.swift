@@ -10,50 +10,48 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
-    var skyColor = SKColor(red: 250/255, green: 255/255, blue: 245/255, alpha: 1.0)
+    var skyColor = SKColor(red: 180/255, green: 200/255, blue: 255/255, alpha: 1.0)
+    
+    var ground = SKShapeNode()
     
     var player = SKShapeNode()
     
-    var gameStart = false
-    
-    var count = 0
     
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        
+        //Setting up Scene
         self.backgroundColor = skyColor
         
+        ground = SKShapeNode(rectOfSize: CGSize(width: frame.width, height: frame.height * 0.2))
+        
+        ground.fillColor = SKColor.greenColor()
+        
+        ground.position = CGPoint(x: frame.width / 2, y: 0)
+        
+        addChild(ground)
+        
+        
+        //Setting up Physics
         self.physicsWorld.contactDelegate = self
         
-        physicsWorld.gravity = CGVectorMake(0, -20)
+        physicsWorld.gravity = CGVectorMake(0, -12)
         
-        let borderFrame = SKPhysicsBody.init(edgeLoopFromRect: frame)
         
-        physicsBody = borderFrame
-        
+        //Setting up Player - A Basic Cricle
         player = SKShapeNode(circleOfRadius: 20)
         
-        player.position = CGPoint(x: CGRectGetMidX(self.frame) - 50, y: CGRectGetMidY(self.frame))
+        player.fillColor = SKColor.blackColor()
+        
+        player.strokeColor = SKColor.grayColor()
+        
+        player.lineWidth = 2
+        
+        player.position = CGPoint(x: CGRectGetMidX(self.frame) * 0.8, y: CGRectGetMidY(self.frame))
         
         player.physicsBody = SKPhysicsBody(circleOfRadius: 20)
         
-        if gameStart && count > 0 {
+        player.physicsBody?.dynamic = true
         
-            player.physicsBody?.dynamic = true
-        
-            player.physicsBody?.allowsRotation = false
-            
-            gameStart = false
-            
-        } else {
-            
-            player.physicsBody?.dynamic = false
-            
-            player.physicsBody?.allowsRotation = false
-            
-            gameStart = true
-            
-        }
+        player.physicsBody?.allowsRotation = false
         
         addChild(player)
         
@@ -62,11 +60,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
-        count++
-        
         player.physicsBody?.velocity = CGVectorMake(0, 0)
         
-        player.physicsBody?.applyImpulse(CGVectorMake(0, 55))
+        player.physicsBody?.applyImpulse(CGVectorMake(0, 36))
         
     }
    
