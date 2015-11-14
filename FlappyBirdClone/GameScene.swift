@@ -27,6 +27,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         ground.position = CGPoint(x: frame.width / 2, y: 0)
         
+        ground.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: frame.width, height: frame.height * 0.2))
+        
+        if let physics = ground.physicsBody {
+            
+            physics.dynamic = false
+            
+            physics.allowsRotation = false
+            
+            physics.affectedByGravity = false
+            
+        }
+        
         addChild(ground)
         
         
