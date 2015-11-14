@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Calvin Schofield. All rights reserved.
 //
 
+import UIKit
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -20,7 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var player = SKShapeNode()
     
-    var VerticalDifference : CGFloat = 5.0
+    var VerticalDifference : CGFloat = 300.0
     
     var gameStarted = false
     
@@ -81,21 +82,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         upperPipe.strokeColor = SKColor.grayColor()
         
-        upperPipe.position = CGPoint(x: frame.width * 0.6, y: frame.height * 0.8)
+        upperPipe.position = CGPoint(x: frame.width + 100, y: frame.height * 0.8)
         
         addChild(upperPipe)
         
         
         //Setting up lowerPipes
-        upperPipe = SKShapeNode(rectOfSize: CGSize(width: 80, height: 400), cornerRadius: 15)
+        lowerPipe = SKShapeNode(rectOfSize: CGSize(width: 80, height: 400), cornerRadius: 15)
         
-        upperPipe.fillColor = SKColor.redColor()
+        lowerPipe.fillColor = SKColor.redColor()
         
-        upperPipe.strokeColor = SKColor.grayColor()
+        lowerPipe.strokeColor = SKColor.grayColor()
         
-        upperPipe.position = CGPoint(x: upperPipe.position.x, y: upperPipe.position.y - VerticalDifference)
-        
-        addChild(upperPipe)
+        lowerPipe.position = CGPoint(x: upperPipe.position.x, y: upperPipe.position.y / 2 - VerticalDifference)
+                
+        addChild(lowerPipe)
         
         
         //Setting up Player - A Basic Cricle
@@ -123,7 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
             player.physicsBody?.velocity = CGVectorMake(0, 0)
         
-            player.physicsBody?.applyImpulse(CGVectorMake(0, 36))
+            player.physicsBody?.applyImpulse(CGVectorMake(0, 38))
             
         } else {
             
