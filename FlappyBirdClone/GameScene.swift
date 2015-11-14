@@ -14,7 +14,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ground = SKShapeNode()
     
+    var pipe = SKShapeNode()
+    
     var player = SKShapeNode()
+    
+    var movePipes = SKAction()
     
     var gameStarted = false
     
@@ -25,6 +29,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Setting up Scene
         self.backgroundColor = skyColor
         
+        
+        //Setting up Ground
         ground = SKShapeNode(rectOfSize: CGSize(width: frame.width, height: frame.height * 0.2))
         
         ground.fillColor = SKColor.greenColor()
@@ -44,6 +50,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         addChild(ground)
+        
+        
+        //Setting up Pipes
+        pipe = SKShapeNode(rectOfSize: CGSize(width: 80, height: 800), cornerRadius: 10)
+        
+        pipe.fillColor = SKColor.redColor()
+        
+        pipe.strokeColor = SKColor.grayColor()
+        
+        pipe.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        
+        addChild(pipe)
         
         
         //Setting up Physics
