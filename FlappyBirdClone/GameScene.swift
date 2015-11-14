@@ -26,10 +26,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var clickCounter = 0
     
+    var score = SKLabelNode()
+    
     
     override func didMoveToView(view: SKView) {
         //Setting up Scene
         self.backgroundColor = skyColor
+        
+//        score = SKLabelNode(text: String(clickCounter - 1))
+//        
+//        score.fontName = "Helvitica-Thin"
+//        
+//        score.fontSize = 20
+//        
+//        score.fontColor = SKColor.blackColor()
+//        
+//        score.position = CGPoint(x: frame.width * 0.3, y: frame.height * 0.8)
+//        
+//        addChild(score)
         
         
         //Setting up Physics
